@@ -128,6 +128,16 @@ $(function () {
 		show_time();
 	}
 
+    hotkeys('s,r', function (event, handler){
+        switch (handler.key) {
+        case 's': start();
+            break;
+        case 'r': standby();
+            break;
+        default: alert(event);
+        }
+    });
+
 	function start() {
 		if ($('.nav li#start').hasClass('active')) {
 			return;
@@ -256,12 +266,6 @@ $(function () {
 			last_time = cur_time;
 		}
 	});
-
-    function sleep(waitMsec) {
-        var startMsec = new Date();
-
-        while (new Date() - startMsec < waitMsec);
-    }
 
 	function obs_scene_change(name){
 		if(name.indexOf(':standby') != -1){
