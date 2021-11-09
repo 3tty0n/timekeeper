@@ -24,9 +24,12 @@ THE SOFTWARE.
 
 $(function () {
 	var loadedcss = '';
-	$('#time1').val('15:00');
-	$('#time2').val('20:00');
-	$('#time3').val('25:00');
+    var default_time1 = '07:00',
+        default_time2 = '08:00',
+        default_time3 = '08:30';
+	$('#time1').val(default_time1);
+	$('#time2').val(default_time2);
+	$('#time3').val(default_time3);
 	$('#info').html("Click to edit this message.");
 
 	function getHashParams() {
@@ -246,10 +249,19 @@ $(function () {
 					audio_chime3.play();
 				}
 
+                if (time3.setSeconds(time3.getSeconds() + 5) < cur_time) {
+                    standby();
+                }
 			}
 			last_time = cur_time;
 		}
 	});
+
+    function sleep(waitMsec) {
+        var startMsec = new Date();
+
+        while (new Date() - startMsec < waitMsec);
+    }
 
 	function obs_scene_change(name){
 		if(name.indexOf(':standby') != -1){
